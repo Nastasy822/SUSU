@@ -2,6 +2,7 @@ import random
 import numpy as np
 import os
 import matplotlib.pyplot as plt
+from IPython.display import clear_output
 
 def sigmoid(z): # sigmoid function
   return 1.0/(1.0+np.exp(-z))
@@ -94,6 +95,7 @@ class Network(object):
 
 
   def plot_summary(self):
+    clear_output(True)
     plt.plot([i for i in range(0,len(self.log_accuracy))], self.log_accuracy,'-go')
     plt.xlabel('epoch'),plt.ylabel('accuracy')
     plt.show()
