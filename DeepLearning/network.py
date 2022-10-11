@@ -3,6 +3,7 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 from IPython.display import clear_output
+from time import time
 
 def sigmoid(z): # sigmoid function
   return 1.0/(1.0+np.exp(-z))
@@ -79,11 +80,13 @@ class Network(object):
 
   # Stochastic Gradient Descent
   def SGD(self, train_data, epochs , bs , lr , test_data):
-    test_data = list(test_data) 
+
+    test_data = list(test_data)
     n_test = len(test_data)
     train_data = list(train_data)
 
     self.log_accuracy=[]
+    start = time()
     for epoch in range(epochs): 
       random.shuffle(train_data) 
       train_loader = self.DataLoader(train_data,bs) 
@@ -92,6 +95,11 @@ class Network(object):
 
       self.log_accuracy.append((self.evaluate(test_data) / n_test) * 100)
       self.plot_summary()
+    print("time=", time() - start)
+
+    print("accuracy=",(self.evaluate(test_data) / n_test) * 100)
+
+
 
 
   def plot_summary(self):
